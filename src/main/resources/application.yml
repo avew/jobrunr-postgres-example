@@ -20,6 +20,7 @@ org:
   jobrunr:
     background-job-server:
       enabled: true
+      worker-count: 4
     dashboard:
       enabled: true
       port: 8000

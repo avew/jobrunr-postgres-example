@@ -4,12 +4,12 @@ import com.example.demo.domain.LogImport;
 import com.example.demo.domain.enumeration.LogImportCategory;
 import com.example.demo.domain.enumeration.LogImportType;
 import com.example.demo.service.app.LogImportService;
-import com.example.demo.service.csv.CustomJobRequest;
-import com.example.demo.service.csv.JobCsv;
+import com.example.demo.service.csv.JobCsvRequestHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.jobrunr.jobs.JobId;
+import org.jobrunr.jobs.context.JobContext;
 import org.jobrunr.scheduling.JobScheduler;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
@@ -59,7 +59,7 @@ public class UploadResource {
                 LogImportType.valueOf(type),
                 LogImportCategory.valueOf(category),
                 multipartFile.getBytes());
-        JobId enqueue = jobScheduler.<JobCsv>enqueue(jobCsv -> jobCsv.run(CustomJobRequest.builder().id(logImport.getId()).build()));
+        JobId enqueue = jobScheduler.<JobCsvRequestHandler>enqueue(jobCsvRequestHandler -> jobCsvRequestHandler.run(logImport.getId(), JobContext.Null));
         logImport.setJobId(enqueue.asUUID().toString());
         return logImportService.save(logImport);
     }

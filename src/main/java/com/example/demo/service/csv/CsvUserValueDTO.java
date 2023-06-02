@@ -1,6 +1,6 @@
 package com.example.demo.service.csv;
 
-import io.github.avew.CsvValue;
+import io.github.avew.CsvewValue;
 import lombok.*;
 
 @Getter
@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CsvUserValueDTO extends CsvValue {
+public class CsvUserValueDTO extends CsvewValue {
 
     private String username;
     private String email;
